@@ -5,6 +5,8 @@
 A quick example of Node Express + `ws` Websocket library to show the (x,y) position of all cursors connected to the 
 server.
 
+The cursor that is **bolded** is your cursor. It will always appear above other cursors
+
 Inspiration: https://ably.com/blog/web-app-websockets-nodejs
 
 ### How to test
