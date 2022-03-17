@@ -19,3 +19,20 @@ Inspiration: https://ably.com/blog/web-app-websockets-nodejs
 1. `npm start`
 1. Open Multiple browser tabs/windows to http://localhost:3000/
 1. Move the mouse on all of them to see the live updating
+
+
+## Pub/Sub Messages
+
+A quick example of Node Express + `ws` Websocket library to show an implementation of publish/subscribe, with dynamic
+subscriptions.
+
+### How to test
+
+![Pub Sub example](figs/pub-sub.png)
+
+1. Git clone this repo
+1. `cd pub-sub`
+1. `npm install`
+1. `npm start`
+1. Open Multiple browser tabs/windows to http://localhost:3000/
+1. Add and remove subscriptions

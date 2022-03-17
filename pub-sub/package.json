@@ -1,11 +1,10 @@
 {
-  "name": "example-websocket",
+  "name": "example-websocket-pub-sub",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.3",
-    "uuid": "^8.3.2",
     "ws": "^8.5.0"
   },
   "devDependencies": {},

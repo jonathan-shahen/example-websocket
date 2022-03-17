@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WebSocket Example: Pub/Sub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <div class="messages">
+        <h1>Message History</h1>
+        <pre id="messageHistory"></pre>
+    </div>
+    <div class="subscriptions">
+        <ul>
+            <li><label><input type="checkbox" data-subscription-id="freq1" onchange="updateSubscription(this)">Every 1s</label></li>
+            <li><label><input type="checkbox" data-subscription-id="freq0.5" onchange="updateSubscription(this)">Every 0.5s</label></li>
+            <li><label><input type="checkbox" data-subscription-id="freq0.3" onchange="updateSubscription(this)">Every 0.3s</label></li>
+        </ul>
+    </div>
+</body>
+
+</html>

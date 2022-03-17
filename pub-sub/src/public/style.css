@@ -1,0 +1,5 @@
+.messages pre {
+    border: black solid 1px;
+    height: 30vh;
+    overflow-y: scroll;
+}
