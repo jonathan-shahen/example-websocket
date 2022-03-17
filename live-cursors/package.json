@@ -1,0 +1,26 @@
+{
+  "name": "example-websocket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "uuid": "^8.3.2",
+    "ws": "^8.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathan-shahen/example-websocket.git"
+  },
+  "author": "Dr. Jonathan Shahen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathan-shahen/example-websocket/issues"
+  },
+  "homepage": "https://github.com/jonathan-shahen/example-websocket#readme"
+}
