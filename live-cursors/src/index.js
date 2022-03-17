@@ -32,11 +32,6 @@ expressServer.on("upgrade", (httpRequest, socket, head) => {
     });
 });
 
-function originIsAllowed(origin) {
-    // put logic here to detect whether the specified origin is allowed.
-    return true;
-}
-
 
 const clients = new Map();
 wss.on('connection', (ws, httpRequest) => {
@@ -57,9 +52,13 @@ wss.on('connection', (ws, httpRequest) => {
 
     clients.set(ws, metadata);
 
+    ws.on('open', function open() {
+        console.log('Sent whoami message');
+        ws.send(JSON.stringify({ whoami: id }));
+    });
+
     ws.on("message", (messageStr) => {
         const message = JSON.parse(messageStr);
-        console.log(message);
         const metadata = clients.get(ws);
 
         message.sender = metadata.id;
@@ -74,5 +73,8 @@ wss.on('connection', (ws, httpRequest) => {
     ws.on("close", () => {
         clients.delete(ws);
     });
+
+    console.log('Sent whoami message');
+    ws.send(JSON.stringify({ whoami: id }));
 }
 );

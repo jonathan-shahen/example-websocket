@@ -1,46 +1,55 @@
-(async function() {
-    const ws = await connectToServer();
+// Stores the ID given to this tab
+let myId = null;
+
+// create the websocket
+const ws = new WebSocket('ws://localhost:7071/ws');
+
+ws.addEventListener('open', function (event) {
+    console.log('Websocket open');
+
+    ws.send(JSON.stringify({ x: 1, y: 1 }));
 
     document.body.onmousemove = (evt) => {
         const messageBody = { x: evt.clientX, y: evt.clientY };
-        console.log('Sending Message', messageBody);
         ws.send(JSON.stringify(messageBody));
     };
+});
 
-    ws.onmessage = (webSocketMessage) => {
-        const messageBody = JSON.parse(webSocketMessage.data);
+
+ws.addEventListener('message', function (event) {
+    const messageBody = JSON.parse(event.data);
+
+    if (messageBody.whoami) {
+        console.log('Received my ID',messageBody)
+        myId = messageBody.whoami;
+    } else {
         const cursor = getOrCreateCursorFor(messageBody);
-        cursor.style.transform = `translate(${messageBody.x}px, ${messageBody.y}px)`;
-    };
 
-    async function connectToServer() {
-        const ws = new WebSocket('ws://localhost:7071/ws');
-        return new Promise((resolve, reject) => {
-            const timer = setInterval(() => {
-                if(ws.readyState === 1) {
-                    clearInterval(timer)
-                    resolve(ws);
-                }
-            }, 10);
-        });
+        // move the cursor to the correct position
+        cursor.style.top = `${messageBody.y}px`;
+        cursor.style.left = `${messageBody.x}px`;
+    }
+});
+
+function getOrCreateCursorFor(messageBody) {
+    const sender = messageBody.sender;
+    const existing = document.querySelector(`[data-sender='${sender}']`);
+    if (existing) {
+        return existing;
     }
 
-    function getOrCreateCursorFor(messageBody) {
-        const sender = messageBody.sender;
-        const existing = document.querySelector(`[data-sender='${sender}']`);
-        if (existing) {
-            return existing;
-        }
+    const template = (sender == myId) ? document.getElementById('myCursor') : document.getElementById('cursor');
+    const cursor = template.content.firstElementChild.cloneNode(true);
+    const svgPath = cursor.getElementsByTagName('path')[0];
 
-        const template = document.getElementById('cursor');
-        const cursor = template.content.firstElementChild.cloneNode(true);
-        const svgPath = cursor.getElementsByTagName('path')[0];
+    cursor.setAttribute("data-sender", sender);
+    svgPath.setAttribute('fill', `hsl(${messageBody.color}, 50%, 50%)`);
 
-        cursor.setAttribute("data-sender", sender);
-        svgPath.setAttribute('fill', `hsl(${messageBody.color}, 50%, 50%)`);
-        document.body.appendChild(cursor);
-
-        return cursor;
+    if (sender == myId) {
+        cursor.classList.add('myCursor');
     }
 
-})();
+    document.body.appendChild(cursor);
+
+    return cursor;
+}

@@ -9,4 +9,11 @@ body {
 .cursor {
     width: 30px;
     transition: all ease;
+    position: fixed;
+    top:0;
+    left:0;
+}
+
+.myCursor {
+    z-index: 999;
 }
